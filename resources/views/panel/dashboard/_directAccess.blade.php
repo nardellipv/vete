@@ -8,7 +8,7 @@
 
         <div class="col-md-6">
             <a href="{{ route('showAdd.patient') }}" type="button" class="btn btn-primary"><i
-                        class="icon-heart-broken2 position-left"></i>Agregar Macota</a>
+                        class="icon-nbsp position-left"></i>Agregar Macota</a>
         </div>
     </div>
 </div>

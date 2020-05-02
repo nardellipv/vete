@@ -38,7 +38,7 @@
                     <li class="navigation-header"><span>Menú</span> <i class="icon-menu" title="Main pages"></i></li>
                     <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ route('home') }}"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                     <li class="{{ request()->is('clientes') ? 'active' : '' }}"><a href="{{ route('customer.index') }}"><i class="icon-user"></i> <span>Clientes</span></a></li>
-                    <li class="{{ request()->is('pacientes') ? 'active' : '' }}"><a href="{{ route('patient.index') }}"><i class="icon-heart-broken2"></i> <span>Macotas</span></a></li>
+                    <li class="{{ request()->is('pacientes') ? 'active' : '' }}"><a href="{{ route('patient.index') }}"><i class="icon-nbsp"></i> <span>Macotas</span></a></li>
                     <li class="{{ request()->is('turnos') ? 'active' : '' }}"><a href="{{ route('turn.index') }}"><i class="icon-calendar"></i> <span>Turnos</span></a></li>
                 </ul>
             </div>

@@ -79,14 +79,14 @@
     <div class="col-lg-3 col-md-6">
         <div class="card-counter success">
             <i class="fa fa-database"></i>
-            <span class="count-numbers">6875</span>
-            <span class="count-name">Animales</span>
+            <span class="count-numbers">{{ $countPatient }}</span>
+            <span class="count-name">Mascotas</span>
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
         <div class="card-counter info">
             <i class="fa fa-users"></i>
-            <span class="count-numbers">35</span>
+            <span class="count-numbers">{{ $countCustomer }}</span>
             <span class="count-name">clientes</span>
         </div>
     </div>

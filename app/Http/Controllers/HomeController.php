@@ -10,7 +10,6 @@ use App\Province;
 use App\Specie;
 use App\Veterinarian;
 use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -33,17 +32,26 @@ class HomeController extends Controller
         $customers = Customer::where('veterinarian_id', $veterinarian->id)
             ->get();
 
-        return view('panel.index', compact('province','cities', 'species', 'customers'));
+        $patients = Patient::where('veterinarian_id', $veterinarian->id)
+            ->get();
+
+        $countPatient = Patient::where('veterinarian_id', $veterinarian->id)
+            ->count();
+
+        $countCustomer = Customer::where('veterinarian_id', $veterinarian->id)
+            ->count();
+
+        return view('panel.index', compact('province', 'cities', 'species', 'customers', 'patients',
+            'countPatient', 'countCustomer'));
     }
 
     public function addCustomerPatient(AddCustomerPatientDashboardRequest $request)
     {
-//        dd($request->all());
 
         $veterinarian = Veterinarian::where('user_id', Auth::user()->id)
             ->first();
 
-        $customer=Customer::create([
+        $customer = Customer::create([
             'name' => $request['nameCustomer'],
             'dni' => $request['dni'],
             'email' => $request['email'],
