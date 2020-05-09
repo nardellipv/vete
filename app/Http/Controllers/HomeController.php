@@ -32,7 +32,8 @@ class HomeController extends Controller
         $customers = Customer::where('veterinarian_id', $veterinarian->id)
             ->get();
 
-        $patients = Patient::where('veterinarian_id', $veterinarian->id)
+        $patients = Patient::with(['specie'])
+            ->where('veterinarian_id', $veterinarian->id)
             ->get();
 
         $countPatient = Patient::where('veterinarian_id', $veterinarian->id)

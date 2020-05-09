@@ -27,6 +27,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/paciente/editar/{slug}/{id}', 'PatientController@showEditPatient')->name('showEdit.patient');
     Route::post('/paciente/actualizar/{id}', 'PatientController@showUpdatePatient')->name('showUpdate.patient');
 
+    Route::get('/ventas', 'SaleController@index')->name('sale.index');
+    Route::get('/ventas/mes', 'SaleController@sellMonth')->name('sale.month');
+    Route::get('/ventas/busqueda', 'SaleController@searchAdvance')->name('search.advance');
+    Route::post('/ventas/busqueda/fecha/resultado', 'SaleController@searchResultDateAdvance')->name('searchResultDate.advance');
+    Route::post('/ventas/busqueda/cliente/resultado', 'SaleController@searchResultCustomerAdvance')->name('searchResultCustomer.advance');
+    Route::post('/ventas/busqueda/estado/resultado', 'SaleController@searchResultStatusAdvance')->name('searchResultStatus.advance');
+    Route::get('/ventas/nueva', 'SaleController@newSale')->name('new.sale');
+    Route::post('/ventas/nueva/venta', 'SaleController@addNewSale')->name('addNew.sale');
+
+    Route::get('/stock', 'StockController@index')->name('stock.index');
+
     Route::get('/turnos', 'TurnController@index')->name('turn.index');
 });
 //-----------------------

@@ -29,4 +29,9 @@ class Veterinarian extends Model
     {
         return $this->hasMany(Patient::class);
     }
+
+    public function Sale()
+    {
+        return $this->hasMany(Sale::class);
+    }
 }

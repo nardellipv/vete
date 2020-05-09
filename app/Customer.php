@@ -29,4 +29,9 @@ class Customer extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function Sale()
+    {
+        return $this->hasOne(Sale::class);
+    }
 }

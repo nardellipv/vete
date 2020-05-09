@@ -48,8 +48,8 @@ $(function() {
         order: [[ 0, 'desc' ]],
         dom: '<"datatable-header"fl><"datatable-scroll-lg"t><"datatable-footer"ip>',
         language: {
-            search: '<span>Filter:</span> _INPUT_',
-            lengthMenu: '<span>Show:</span> _MENU_',
+            search: '<span>Filtro:</span> _INPUT_',
+            lengthMenu: '<span>Mostrar:</span> _MENU_',
             paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
         },
         lengthMenu: [ 25, 50, 75, 100 ],
@@ -88,7 +88,7 @@ $(function() {
     // ------------------------------
 
     // Add placeholder to the datatable filter option
-    $('.dataTables_filter input[type=search]').attr('placeholder','Type to filter...');
+    $('.dataTables_filter input[type=search]').attr('placeholder','Texto a buscar...');
 
 
     // Enable Select2 select for the length option

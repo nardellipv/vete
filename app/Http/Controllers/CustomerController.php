@@ -7,7 +7,6 @@ use App\Customer;
 use App\Http\Requests\AddNewCustomerRequest;
 use App\Http\Requests\EditCustomerRequest;
 use App\Province;
-use App\User;
 use App\Veterinarian;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;

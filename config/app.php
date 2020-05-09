@@ -170,6 +170,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        'App\Providers\ComposerServiceProvider',
 
         /*
          * Application Service Providers...
