@@ -9,7 +9,10 @@ use App\Http\Requests\AdvanceSearchStatusRequest;
 use App\Sale;
 use App\Stock;
 use App\Veterinarian;
+use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class SaleController extends Controller
@@ -104,6 +107,54 @@ class SaleController extends Controller
         $stocks = Stock::where('veterinarian_id', $veterinarian->id)
             ->get();
 
-        return view('panel.sale._addSale', compact('customers', 'stocks'));
+        $invoiceNumber = Sale::where('veterinarian_id', $veterinarian->id)
+            ->orderBy('invoice', 'DESC')
+            ->first();
+
+        return view('panel.sale._addSale', compact('customers', 'stocks', 'veterinarian', 'invoiceNumber'));
+    }
+
+    public function addNewSale(Request $request)
+    {
+
+        dd($request->all());
+//        $data = $request->all();
+
+        $datas = Arr::dot($request->all());
+        $cant = count($datas) / 6 - 1;
+
+
+//        foreach ($datas as $key => $value) {
+//            for ($i = 0; $i <= $cant; $i++) {
+//                if ($key == 'qty.' . $i) {
+//                    print($key = $value->qty);
+//                }
+//            }
+//        }
+
+        $veterinarian = Veterinarian::where('user_id', Auth::user()->id)
+            ->first();
+
+
+        foreach ($datas as $key=>$value) {
+            for ($i = 0; $i <= $cant; $i++) {
+
+                $sales = new Sale();
+                $sales->customer_id = $request['customer_id'];
+                $sales->stock_id = $key['2'];
+                $sales->comment = 9;
+                $sales->quantity = $key = $value[$i];
+                $sales->mount = 9;
+                $sales->discount = 9;
+                $sales->invoice = 92;
+                $sales->date = now();
+                $sales->status = 'Pagada';
+                $sales->veterinarian_id = $veterinarian->id;
+                $sales->save();
+            }
+        }
+
+        Toastr::info('Se creó correctamente el nuevo cliente', '', ["positionClass" => "toast-bottom-right", "progressBar" => "true"]);
+        return back();
     }
 }

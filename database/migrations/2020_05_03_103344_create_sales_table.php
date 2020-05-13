@@ -22,6 +22,7 @@ class CreateSalesTable extends Migration
             $table->enum('status',['Pagada','Cuenta Corriente', 'Cancelada']);
             $table->integer('mount');
             $table->integer('discount');
+            $table->mediumText('comment');
 
             //relaciones
 

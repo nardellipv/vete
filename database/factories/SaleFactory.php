@@ -13,6 +13,7 @@ $factory->define(Sale::class, function (Faker $faker) {
         'status' => $faker->randomElement($array = array('Pagada','Cuenta Corriente', 'Cancelada')),
         'mount' => $faker->numberBetween('100','99999'),
         'discount' => $faker->numberBetween('10','999'),
+        'comment' => $faker->text,
         'customer_id' => rand('1','10'),
         'stock_id' => rand('1','300'),
         'veterinarian_id' => rand('1','10'),
