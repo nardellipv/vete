@@ -14,6 +14,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use LaravelDaily\Invoices\Invoice;
+use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class SaleController extends Controller
 {
@@ -117,44 +120,89 @@ class SaleController extends Controller
     public function addNewSale(Request $request)
     {
 
-        dd($request->all());
-//        $data = $request->all();
+        $products = $request['products'];
 
-        $datas = Arr::dot($request->all());
-        $cant = count($datas) / 6 - 1;
-
-
-//        foreach ($datas as $key => $value) {
-//            for ($i = 0; $i <= $cant; $i++) {
-//                if ($key == 'qty.' . $i) {
-//                    print($key = $value->qty);
-//                }
-//            }
-//        }
+        $customer = Customer::where('id', $request->customer_id)
+            ->first();
 
         $veterinarian = Veterinarian::where('user_id', Auth::user()->id)
             ->first();
 
+        $invoiceSale = Sale::where('veterinarian_id', $veterinarian->id)
+            ->orderBy('id', 'DESC')
+            ->first();
 
-        foreach ($datas as $key=>$value) {
-            for ($i = 0; $i <= $cant; $i++) {
-
-                $sales = new Sale();
-                $sales->customer_id = $request['customer_id'];
-                $sales->stock_id = $key['2'];
-                $sales->comment = 9;
-                $sales->quantity = $key = $value[$i];
-                $sales->mount = 9;
-                $sales->discount = 9;
-                $sales->invoice = 92;
-                $sales->date = now();
-                $sales->status = 'Pagada';
-                $sales->veterinarian_id = $veterinarian->id;
-                $sales->save();
-            }
+        if($invoiceSale->invoice == NULL){
+            $invoiceNum=1;
+        }else {
+            $invoiceNum = $invoiceSale->invoice + 1;
         }
 
-        Toastr::info('Se creó correctamente el nuevo cliente', '', ["positionClass" => "toast-bottom-right", "progressBar" => "true"]);
-        return back();
+        //Genera factura
+        $client = new Party([
+            'name' => $veterinarian->name,
+            'phone' => $veterinarian->phone,
+            'address' => $veterinarian->address,
+        ]);
+
+        $customer = new Party([
+            'name' => $customer->name,
+            'phone' => $customer->phone,
+        ]);
+
+
+        foreach ($products as $value) {
+            $nameProduct = Stock::where('id', $value['stock_id'])
+                ->first();
+            $items[] =
+                (new InvoiceItem())
+                    ->title($nameProduct->name)
+                    ->pricePerUnit($value['price'])
+                    ->quantity($value['qty'])
+                    ->discount($value['discount']);
+
+            $sales = new Sale();
+            $sales->customer_id = $request['customer_id'];
+            $sales->stock_id = $value['stock_id'];
+            $sales->comment = 9;
+            $sales->quantity = $value['qty'];
+            $sales->mount = $value['price'];
+            $sales->discount = $value['discount'];
+            $sales->invoice = $invoiceNum;
+            $sales->date = now();
+            $sales->status = 'Pagada';
+            $sales->veterinarian_id = $veterinarian->id;
+            $sales->save();
+        }
+
+        $notes = [
+            'aca van las notas',
+            'additional notes',
+            'in regards of delivery or something else',
+        ];
+        $notes = implode("<br>", $notes);
+
+        $invoice = Invoice::make('recibo')
+            ->sequence($invoiceNum)
+            ->serialNumberFormat('{SEQUENCE}')
+            ->seller($client)
+            ->buyer($customer)
+            ->date(now()->subWeeks(3))
+            ->dateFormat('d/m/Y')
+            ->currencySymbol('$')
+            ->currencyFormat('{SYMBOL}{VALUE}')
+            ->currencyThousandsSeparator('.')
+            ->currencyDecimalPoint(',')
+            ->filename($client->name . ' ' . $customer->name)
+            ->addItems($items)
+            ->notes($notes)
+            ->logo(public_path('vendor/invoices/sample-logo.png'));
+        ///////////////////////////////
+
+
+        Toastr::info('Se generó correctamente el recibo', '', ["positionClass" => "toast-bottom-right", "progressBar" => "true"]);
+        return $invoice->download();
+//        return back();
+
     }
 }
