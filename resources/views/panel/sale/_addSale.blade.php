@@ -18,18 +18,16 @@
             $("#addrow").on("click", function () {
                 var newRow = $("<tr>");
                 var cols = "";
-                cols += '<td><select name="stock_id[][' + counter  + ']"><option value="">Elija el Producto</option>@foreach($stocks as $stock)<option value="{{ $stock->id }}">{{ $stock->name }}</option>@endforeach</select></td>';
-                cols += '<td><input type="text" class="form-control description" name="description[][' + counter + ']" step="0" min="0"/></td>';
-                cols += '<td><input type="text" class="form-control description" name="qty[][' + counter + ']" step="0" min="0"/></td>';
-                cols += '<td><input type="text" class="form-control description" name="price[][' + counter + ']" step="0" min="0"/></td>';
-                cols += '<td><input type="text" class="form-control description" name="total[][' + counter + ']" step="0" min="0"/></td>';
+                cols += '<td><select name="products[' + counter + '][stock_id]"><option value="">Elija el Producto</option>@foreach($stocks as $stock)<option value="{{ $stock->id }}">{{ $stock->name }}</option>@endforeach</select></td>';
+                cols += '<td><input type="text" class="form-control description" name="products[' + counter + '][qty]" step="0" min="0"/></td>';
+                cols += '<td><input type="text" class="form-control description" name="products[' + counter + '][price]" step="0" min="0"/></td>';
+                cols += '<td><input type="text" class="form-control description" name="products[' + counter + '][discount]" step="0" min="0"/></td>';
 
-                cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+                cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Borrar Fila"></td>';
                 newRow.append(cols);
                 $("table.order-list").append(newRow);
                 counter++;
             });
-
 
 
             $("table.order-list").on("click", ".ibtnDel", function (event) {
@@ -39,8 +37,6 @@
 
 
         });
-
-
 
         function calculateRow(row) {
             var price = +row.find('input[name^="price"]').val();
@@ -70,13 +66,6 @@
                         <h5 class="panel-title">Nueva Venta</h5>
                     </div>
 
-                    <div class="row clearfix">
-                        <div class="col-md-10 col-lg-offset-1" style="margin-bottom: 10px">
-                            <button id="add_row" class="btn btn-default pull-left">Agregar Fila</button>
-                            <button id='delete_row' class="pull-right btn btn-default">Borrar Fila</button>
-                        </div>
-                    </div>
-
                     <form method="post" action="{{ route('addNew.sale') }}">
                         @csrf
                         <div class="row clearfix">
@@ -100,39 +89,36 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center"> Producto</th>
-                                        <th class="text-center"> Descripción</th>
                                         <th class="text-center"> Cantidad</th>
                                         <th class="text-center"> Precio</th>
                                         <th class="text-center"> Descuento</th>
-                                        <th class="text-center"> Total</th>
+                                        <th class="text-center"> Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select name="stock_id[]">
+                                            <select name="products[0][stock_id]">
                                                 <option value="">Elija el Producto</option>
                                                 @foreach($stocks as $stock)
                                                     <option value="{{ $stock->id }}">{{ $stock->name }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
-                                        <td><input type="text" name='description[][0]'
-                                                   class="form-control description" step="0" min="0"/></td>
-                                        <td><input type="number" name='qty[][0]' required
-                                                   class="form-control qty" step="0" min="0"/></td>
-                                        <td><input type="number" name='price[][0]' required
-                                                   class="form-control price" step="0.00" min="0"/></td>
-                                        <td><input type="number" name='discount[][0]'
-                                                   class="form-control discount"/></td>
-                                        <td><input type="number" name='total[]' required
-                                                   class="form-control total" readonly/></td>
+                                        <td><input type="number" id="qty" name='products[0][qty]' required
+                                                   class="form-control qty" step="0" min="0"  /></td>
+                                        <td><input type="number" id="price" name='products[0][price]' required
+                                                   class="form-control price" step="0.00" min="0" /></td>
+                                        <td><input type="number" id="discount" name='products[0][discount]'
+                                                   class="form-control discount" /></td>
+                                        <td></td>
                                     </tr>
                                     </tbody>
                                     <tfoot>
                                     <tr>
                                         <td colspan="5" style="text-align: left;">
-                                            <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row" />
+                                            <input type="button" class="btn btn-lg btn-block " id="addrow"
+                                                   value="Agregar Fila"/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -141,45 +127,46 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="row clearfix" style="margin-top:20px">
-                            <div class="pull-right col-md-4">
-                                <table class="table table-bordered table-hover" id="tab_logic_total"
-                                       style="font-size: 12px;">
-                                    <tbody>
-                                    <tr>
-                                        <th class="text-center">Sub Total</th>
-                                        <td class="text-center"><input type="number" name='sub_total' placeholder='0.00'
-                                                                       class="form-control" id="sub_total" readonly/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center">Impuesto</th>
-                                        <td class="text-center">
-                                            <div class="input-group mb-2 mb-sm-0">
-                                                <input type="number" class="form-control" name="tax" id="tax" placeholder="0">
-                                                <div class="input-group-addon">%</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center">Impuesto $</th>
-                                        <td class="text-center"><input type="number" name='tax_amount' id="tax_amount"
-                                                                       placeholder='0.00' class="form-control"
-                                                                       readonly/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center">Total</th>
-                                        <td class="text-center"><input type="number" name='total_amount'
-                                                                       id="total_amount"
-                                                                       placeholder='0.00' class="form-control"
-                                                                       readonly/>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        {{--<div class="row clearfix" style="margin-top:20px">--}}
+                            {{--<div class="pull-right col-md-4">--}}
+                                {{--<table class="table table-bordered table-hover" id="tab_logic_total"--}}
+                                       {{--style="font-size: 12px;">--}}
+                                    {{--<tbody>--}}
+                                    {{--<tr>--}}
+                                        {{--<th class="text-center">Sub Total</th>--}}
+                                        {{--<td class="text-center"><input type="number" name='sub_total' placeholder='0.00'--}}
+                                                                       {{--class="form-control" id="sub_total" readonly/>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr>--}}
+                                        {{--<th class="text-center">Impuesto</th>--}}
+                                        {{--<td class="text-center">--}}
+                                            {{--<div class="input-group mb-2 mb-sm-0">--}}
+                                                {{--<input type="number" class="form-control" name="tax" id="tax"--}}
+                                                       {{--placeholder="0">--}}
+                                                {{--<div class="input-group-addon">%</div>--}}
+                                            {{--</div>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr>--}}
+                                        {{--<th class="text-center">Impuesto $</th>--}}
+                                        {{--<td class="text-center"><input type="number" name='tax_amount' id="tax_amount"--}}
+                                                                       {{--placeholder='0.00' class="form-control"--}}
+                                                                       {{--readonly/>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr>--}}
+                                        {{--<th class="text-center">Total</th>--}}
+                                        {{--<td class="text-center"><input type="number" name='total_amount'--}}
+                                                                       {{--id="total_amount"--}}
+                                                                       {{--placeholder='0.00' class="form-control"--}}
+                                                                       {{--readonly/>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                    {{--</tbody>--}}
+                                {{--</table>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                         <button type="submit" class="btn btn-primary legitRipple" style="margin: 20px 43px 20px 35px;">
                             Generar Recibo
                         </button>
