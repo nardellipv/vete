@@ -37,7 +37,7 @@
                         <td>#{{ $sellDay->invoice }}</td>
                         <td>
                             <h6 class="no-margin">
-                                <a href="#">{{ $sellDay->customer->name }}</a>
+                                <a href="{{ route('customer.view', $sellDay->customer->dni) }}">{{ $sellDay->customer->name }}</a>
                                 <small class="display-block text-muted">{{ $sellDay->status }}</small>
                             </h6>
                         </td>
@@ -48,7 +48,7 @@
                         <td>${{ $sellDay->mount - $sellDay->discount }}</td>
                         <td class="text-center">
                             <ul class="icons-list">
-                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a>
+                                <li><a href="" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a>
                                 </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i

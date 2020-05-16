@@ -16,7 +16,7 @@
             <h5 class="panel-title">Listado Pacientes</h5>
             <div class="heading-elements">
                 <a href="{{ route('showAdd.patient') }}" type="button" class="btn btn-primary btn-xs legitRipple"><i
-                            class="icon-heart-broken2 position-left"></i> Agreagar Macota</a>
+                            class="icon-add position-left"></i> Agreagar Macota</a>
             </div>
         </div>
 

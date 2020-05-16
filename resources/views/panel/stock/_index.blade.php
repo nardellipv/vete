@@ -51,12 +51,12 @@
                     @endif
                     <th>
                         <ul class="icons-list">
-                            {{-- <li class="text-primary-600"><a href="{{ route('stock.view', ['slug'=>$stock->slug, 'id'=>$stock->id]) }}"><i class="icon-eye"></i></a></li>
+                             <li class="text-primary-600"><a href="{{ route('stock.view', ['slug'=>$stock->slug, 'id'=>$stock->id]) }}"><i class="icon-eye"></i></a></li>
                              <li class="text-teal-600"><a href="{{ route('showEdit.stock', ['slug'=>$stock->slug, 'id'=>$stock->id]) }}"><i class="icon-pencil7"></i></a></li>
                              <form method="POST" action="{{ route('stock.destroy', $stock) }}">
                                  @csrf
                                  <li class="text-danger-600"><button type="submit" class="btn btn-link legitRipple"><i class="icon-trash"></i></button></li>
-                             </form>--}}
+                             </form>
                         </ul>
                     </th>
                 </tr>

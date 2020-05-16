@@ -22,6 +22,7 @@ class CreateStocksTable extends Migration
             $table->integer('buyPrice');
             $table->integer('quantity');
             $table->date('expire')->nullable();
+            $table->string('slug');
 
             //relaciones
 

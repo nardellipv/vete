@@ -37,8 +37,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ventas/nueva/venta', 'SaleController@addNewSale')->name('addNew.sale');
 
     Route::get('/stock', 'StockController@index')->name('stock.index');
+    Route::get('/stock/ver/{slug}/{id}', 'StockController@viewStock')->name('stock.view');
+    Route::post('/stock/eliminar/{id}', 'StockController@destroyStock')->name('stock.destroy');
     Route::get('/stock/agregar', 'StockController@showAddStock')->name('showAdd.stock');
     Route::post('/stock/nuevo-producto', 'StockController@addStock')->name('add.stock');
+    Route::get('/stock/editar/{slug}/{id}', 'StockController@showEditStock')->name('showEdit.stock');
+    Route::post('/stock/actualizar/{id}', 'StockController@showUpdateStock')->name('showUpdate.stock');
 
     Route::get('/turnos', 'TurnController@index')->name('turn.index');
 });

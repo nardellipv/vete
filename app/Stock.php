@@ -20,4 +20,9 @@ class Stock extends Model
     {
         return $this->hasOne(Sale::class);
     }
+
+    public function Category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
