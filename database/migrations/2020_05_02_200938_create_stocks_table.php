@@ -20,8 +20,6 @@ class CreateStocksTable extends Migration
             $table->string('provider');
             $table->string('internalCode')->nullable();
             $table->integer('buyPrice');
-            $table->integer('sellPrice');
-            $table->integer('tax')->nullable();
             $table->integer('quantity');
             $table->date('expire')->nullable();
 

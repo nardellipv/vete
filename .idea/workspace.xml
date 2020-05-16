@@ -17,10 +17,8 @@
       <file leaf-file-name="web.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
             <state relative-caret-position="83">
               <caret line="29" column="37" lean-forward="true" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
-=======
             <state relative-caret-position="612">
               <caret line="36" column="65" selection-start-line="36" selection-start-column="55" selection-end-line="36" selection-end-column="65" />
             </state>
@@ -44,7 +42,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="431">
               <caret line="129" column="23" selection-start-line="129" selection-start-column="23" selection-end-line="168" selection-end-column="34" />
->>>>>>> factura
             </state>
           </provider>
         </entry>
@@ -307,8 +304,6 @@
               <item name="vete" type="b2602c69:ProjectViewProjectNode" />
               <item name="vete" type="462c0819:PsiDirectoryNode" />
             </path>
-<<<<<<< HEAD
-=======
             <path>
               <item name="vete" type="b2602c69:ProjectViewProjectNode" />
               <item name="vete" type="462c0819:PsiDirectoryNode" />
@@ -380,7 +375,6 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
->>>>>>> factura
           </expand>
           <select />
         </subPane>
@@ -449,11 +443,7 @@
     <frame x="-1608" y="71" width="1616" height="916" extended-state="6" />
     <layout>
       <window_info anchor="right" id="Remote Host" order="0" weight="0.32991013" />
-<<<<<<< HEAD
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28818998" />
-=======
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28818998" />
->>>>>>> factura
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32941177" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Database" order="4" />

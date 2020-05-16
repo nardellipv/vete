@@ -37,6 +37,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ventas/nueva/venta', 'SaleController@addNewSale')->name('addNew.sale');
 
     Route::get('/stock', 'StockController@index')->name('stock.index');
+    Route::get('/stock/agregar', 'StockController@showAddStock')->name('showAdd.stock');
+    Route::post('/stock/nuevo-producto', 'StockController@addStock')->name('add.stock');
 
     Route::get('/turnos', 'TurnController@index')->name('turn.index');
 });

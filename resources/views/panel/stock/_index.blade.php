@@ -15,8 +15,8 @@
         <div class="panel-heading">
             <h5 class="panel-title">Listado Productos</h5>
             <div class="heading-elements">
-                <a href="{{ route('showAdd.patient') }}" type="button" class="btn btn-primary btn-xs legitRipple"><i
-                            class="icon-heart-broken2 position-left"></i> Agreagar Producto</a>
+                <a href="{{ route('showAdd.stock') }}" type="button" class="btn btn-primary btn-xs legitRipple"><i
+                            class="icon-box-add position-left"></i> Agreagar Producto</a>
             </div>
         </div>
 
@@ -26,29 +26,37 @@
                 <th>Nombre</th>
                 <th>Proveedor</th>
                 <th>Precio Compra</th>
-                <th>Nombre</th>
-                <th>Comentario</th>
-                <th>Dueño</th>
+                <th>Cantidad</th>
+                <th>Vencimiento</th>
                 <th>Acción</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($patients as $patient)
+            @foreach($stocks as $stock)
                 <tr>
-                    <th>{{ $patient->specie->name }}</th>
-                    <th>{{ $patient->race }}</th>
-                    <th>{{ \Carbon\Carbon::parse($patient->birthday)->diff(\Carbon\Carbon::now())->format('%y años y %m meses') }}</th>
-                    <th>{{ $patient->name }}</th>
-                    <th>{{ Str::limit($patient->comment, 50) }}</th>
-                    <th>{{ $patient->customer->name }}</th>
+                    <th>{{ $stock->name }}</th>
+                    <th>{{ $stock->provider }}</th>
+                    <th>${{ $stock->buyPrice }}</th>
+                    @if($stock->quantity <= 20)
+                       <th><span class="label label-flat label-block border-info text-danger-600">{{ $stock->quantity }}</span></th>
+                    @else
+                        <th>{{ $stock->quantity }}</th>
+                    @endif
+                    @if(now() >= $stock->expire)
+                        <th>
+                            <span class="label label-danger label-block">{{ \Carbon\Carbon::parse($stock->expire)->format(('d/m/Y')) }}</span>
+                        </th>
+                    @else
+                        <th>{{ \Carbon\Carbon::parse($stock->expire)->format(('d/m/Y')) }}</th>
+                    @endif
                     <th>
                         <ul class="icons-list">
-                            <li class="text-primary-600"><a href="{{ route('patient.view', ['slug'=>$patient->slug, 'id'=>$patient->id]) }}"><i class="icon-eye"></i></a></li>
-                            <li class="text-teal-600"><a href="{{ route('showEdit.patient', ['slug'=>$patient->slug, 'id'=>$patient->id]) }}"><i class="icon-pencil7"></i></a></li>
-                            <form method="POST" action="{{ route('patient.destroy', $patient) }}">
-                                @csrf
-                                <li class="text-danger-600"><button type="submit" class="btn btn-link legitRipple"><i class="icon-trash"></i></button></li>
-                            </form>
+                            {{-- <li class="text-primary-600"><a href="{{ route('stock.view', ['slug'=>$stock->slug, 'id'=>$stock->id]) }}"><i class="icon-eye"></i></a></li>
+                             <li class="text-teal-600"><a href="{{ route('showEdit.stock', ['slug'=>$stock->slug, 'id'=>$stock->id]) }}"><i class="icon-pencil7"></i></a></li>
+                             <form method="POST" action="{{ route('stock.destroy', $stock) }}">
+                                 @csrf
+                                 <li class="text-danger-600"><button type="submit" class="btn btn-link legitRipple"><i class="icon-trash"></i></button></li>
+                             </form>--}}
                         </ul>
                     </th>
                 </tr>

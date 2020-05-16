@@ -12,7 +12,6 @@ use App\Veterinarian;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use LaravelDaily\Invoices\Invoice;
 use LaravelDaily\Invoices\Classes\Party;
@@ -132,9 +131,11 @@ class SaleController extends Controller
             ->orderBy('id', 'DESC')
             ->first();
 
-        if($invoiceSale->invoice == NULL){
-            $invoiceNum=1;
-        }else {
+
+
+        if (is_null($invoiceSale)) {
+            $invoiceNum = 1;
+        } else {
             $invoiceNum = $invoiceSale->invoice + 1;
         }
 
@@ -164,21 +165,23 @@ class SaleController extends Controller
             $sales = new Sale();
             $sales->customer_id = $request['customer_id'];
             $sales->stock_id = $value['stock_id'];
-            $sales->comment = 9;
             $sales->quantity = $value['qty'];
             $sales->mount = $value['price'];
             $sales->discount = $value['discount'];
+            $sales->comment = $request['notes'];
             $sales->invoice = $invoiceNum;
             $sales->date = now();
-            $sales->status = 'Pagada';
+            $sales->status = $request['status'];
             $sales->veterinarian_id = $veterinarian->id;
             $sales->save();
+
+            //descuento stock
+            Stock::where('id', $value['stock_id'])
+                ->decrement('quantity', $value['qty']);
         }
 
         $notes = [
-            'aca van las notas',
-            'additional notes',
-            'in regards of delivery or something else',
+            $request->notes,
         ];
         $notes = implode("<br>", $notes);
 
@@ -197,12 +200,13 @@ class SaleController extends Controller
             ->addItems($items)
             ->notes($notes)
             ->logo(public_path('vendor/invoices/sample-logo.png'));
+
+//        return $invoice->save();
         ///////////////////////////////
 
 
         Toastr::info('Se generó correctamente el recibo', '', ["positionClass" => "toast-bottom-right", "progressBar" => "true"]);
-        return $invoice->download();
-//        return back();
+        return back();
 
     }
 }

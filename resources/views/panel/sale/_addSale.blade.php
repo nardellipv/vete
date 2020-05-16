@@ -74,7 +74,7 @@
                                 <div class="col-md-6 col-md-offset-0">
                                     <div class="form-group">
                                         <select class="bootstrap-select" name="customer_id" data-live-search="true"
-                                                data-width="100%">
+                                                data-width="100%" required>
                                             <option value="">Elija el Cliente</option>
                                             @foreach($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->name }}</option>
@@ -122,6 +122,34 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td colspan="5" style="text-align: left;">
+                                            <div class="form-group">
+                                                <label class="display-block text-semibold">Estado del pago</label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" value="Pagado" name="status" required>
+                                                    Pagado
+                                                </label>
+
+                                                <label class="radio-inline">
+                                                    <input type="radio" value="Cuenta Corriente" name="status">
+                                                    Cuenta Corriente
+                                                </label>
+
+                                                <label class="radio-inline">
+                                                    <input type="radio" value="Cancelada" name="status">
+                                                    Cancelada
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="5" style="text-align: left;">
+                                            <div class="form-group">
+                                                <label>Agregar Notas:</label>
+                                                <textarea name="notes" rows="4" cols="4" placeholder="Notas" class="form-control"></textarea>
+                                            </div>
+                                        </td>
                                     </tr>
                                     </tfoot>
                                 </table>
