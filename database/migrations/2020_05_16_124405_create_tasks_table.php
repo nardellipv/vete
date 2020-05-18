@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTurnsTable extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateTurnsTable extends Migration
      */
     public function up()
     {
-        Schema::create('turns', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
 
+            $table->string('title');
             $table->string('motive');
             $table->date('date');
             $table->time('hours');
+            $table->enum('priority',['Alta','Normal','Baja']);
+            $table->enum('status',['Completa','Pendiente']);
 
-            $table->timestamps();
 
             //relaciones
 
@@ -36,7 +38,16 @@ class CreateTurnsTable extends Migration
                 ->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->foreignId('veterinarian_id')
+                ->constrained()
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+
+            $table->timestamps();
         });
+
     }
 
     /**
@@ -46,6 +57,6 @@ class CreateTurnsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('turns');
+        Schema::dropIfExists('tasks');
     }
 }

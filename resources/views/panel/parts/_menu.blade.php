@@ -39,7 +39,7 @@
                     <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ route('home') }}"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                     <li class="{{ request()->is('clientes') ? 'active' : '' }}"><a href="{{ route('customer.index') }}"><i class="icon-user"></i> <span>Clientes</span></a></li>
                     <li class="{{ request()->is('pacientes') ? 'active' : '' }}"><a href="{{ route('patient.index') }}"><i class="icon-nbsp"></i> <span>Macotas</span></a></li>
-                    <li class="{{ request()->is('turnos') ? 'active' : '' }}"><a href="{{ route('turn.index') }}"><i class="icon-calendar"></i> <span>Turnos</span></a></li>
+                    <li class="{{ request()->is('tareas') ? 'active' : '' }}"><a href="{{ route('task.index') }}"><i class="icon-calendar"></i> <span>Tareas</span></a></li>
                     <li class="{{ request()->is('ventas') ? 'active' : '' }}"><a href="{{ route('sale.index') }}"><i class="icon-store"></i> <span>Ventas</span></a></li>
                     <li class="{{ request()->is('inventario') ? 'active' : '' }}"><a href="{{ route('stock.index') }}"><i class="icon-color-sampler"></i> <span>Inventario</span></a></li>
                 </ul>

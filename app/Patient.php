@@ -16,9 +16,9 @@ class Patient extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function Turn()
+    public function Task()
     {
-        return $this->belongsTo(Turn::class);
+        return $this->belongsTo(Task::class);
     }
 
     public function Veterinarian()

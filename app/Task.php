@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Turn extends Model
+class Task extends Model
 {
     protected $fillable = [
-        'name', 'motive', 'import', 'customer_id', 'patient_id'
+        'title', 'motive', 'date', 'hours', 'status', 'customer_id', 'patient_id', 'priority','veterinarian_id'
     ];
 
     public function Customer()

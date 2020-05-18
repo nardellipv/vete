@@ -1,9 +1,8 @@
 <?php
 
-use App\Turn;
 use Illuminate\Database\Seeder;
 
-class TurnSeeder extends Seeder
+class TaskSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +11,6 @@ class TurnSeeder extends Seeder
      */
     public function run()
     {
-        factory(Turn::class, 10)->create();
+        factory(\App\Task::class, 300)->create();
     }
 }

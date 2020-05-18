@@ -44,6 +44,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/stock/editar/{slug}/{id}', 'StockController@showEditStock')->name('showEdit.stock');
     Route::post('/stock/actualizar/{id}', 'StockController@showUpdateStock')->name('showUpdate.stock');
 
-    Route::get('/turnos', 'TurnController@index')->name('turn.index');
+    Route::get('/tareas', 'TaskController@index')->name('task.index');
+    Route::get('/tareas/mes', 'TaskController@taskMonth')->name('task.month');
+    Route::get('/tareas/busqueda', 'TaskController@taskSearchAdvance')->name('taskSearch.advance');
+    Route::post('/tareas/busqueda/fecha/resultado', 'TaskController@searchResultDateTaskAdvance')->name('searchResultDateTask.advance');
+    Route::post('/tareas/busqueda/estado/resultado', 'TaskController@searchResultWordTaskAdvance')->name('searchResultWordTask.advance');
+    Route::get('/tareas/nueva', 'TaskController@newTask')->name('new.task');
+    Route::post('/tareas/nueva/tarea', 'TaskController@addNewTask')->name('addNew.task');
 });
 //-----------------------

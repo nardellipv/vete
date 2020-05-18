@@ -15,9 +15,9 @@ class Customer extends Model
         return $this->hasOne(Veterinarian::class);
     }
 
-    public function Turn()
+    public function Task()
     {
-        return $this->hasMany(Turn::class);
+        return $this->hasMany(Task::class);
     }
 
     public function Patient()
