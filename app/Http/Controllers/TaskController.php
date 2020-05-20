@@ -116,7 +116,7 @@ class TaskController extends Controller
         $patients = Patient::where('veterinarian_id', $veterinarian->id)
             ->get();
 
-        return view('panel.task._addTask', compact('customers','patients'));
+        return view('panel.task._addTask', compact('customers', 'patients'));
     }
 
     public function addNewTask(AddNewTaskRequest $request)
@@ -138,6 +138,36 @@ class TaskController extends Controller
         ]);
 
         Toastr::info('Se creó correctamente la tarea', '', ["positionClass" => "toast-bottom-right", "progressBar" => "true"]);
+        return back();
+    }
+
+    public function checkTask($id)
+    {
+        $task = Task::find($id);
+        $task->status = 'Completa';
+        $task->save();
+
+        Toastr::info('Tarea completada correctamente', '', ["positionClass" => "toast-bottom-right", "progressBar" => "true"]);
+        return back();
+    }
+
+    public function deleteTask($id)
+    {
+        $task = Task::find($id);
+        $task->delete();
+
+        Toastr::info('Tarea eliminada correctamente', '', ["positionClass" => "toast-bottom-right", "progressBar" => "true"]);
+        return back();
+    }
+
+    public function changePriorityTask($id, $priority)
+    {
+        $task = Task::find($id);
+        $task->priority = $priority;
+        $task->save();
+
+
+        Toastr::info('Prioridad cambiada correctamente', '', ["positionClass" => "toast-bottom-right", "progressBar" => "true"]);
         return back();
     }
 }

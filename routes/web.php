@@ -51,5 +51,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tareas/busqueda/estado/resultado', 'TaskController@searchResultWordTaskAdvance')->name('searchResultWordTask.advance');
     Route::get('/tareas/nueva', 'TaskController@newTask')->name('new.task');
     Route::post('/tareas/nueva/tarea', 'TaskController@addNewTask')->name('addNew.task');
+    Route::get('/tareas/check/{id}', 'TaskController@checkTask')->name('check.task');
+    Route::get('/tareas/borrar-tarea/{id}', 'TaskController@deleteTask')->name('delete.task');
+    Route::get('/tareas/cambiar-prioridad/{id}/{priority}', 'TaskController@changePriorityTask')->name('changePriority.task');
+
 });
 //-----------------------

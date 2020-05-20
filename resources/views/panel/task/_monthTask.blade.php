@@ -50,10 +50,12 @@
                         <div class="panel-footer panel-footer-condensed">
                             <div class="border-top-primary text-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn bg-teal-600 legitRipple"><i
-                                                class="icon-checkmark"></i></button>
-                                    <button type="button" class="btn bg-teal-600 legitRipple"><i
-                                                class="icon-cross2"></i></button>
+                                    <a href="{{route('check.task', $task)}}" type="button"
+                                       class="btn bg-teal-600 legitRipple"><i
+                                                class="icon-checkmark"></i></a>
+                                    <a href="{{ route('delete.task', $task) }}" type="button"
+                                       class="btn bg-teal-600 legitRipple"><i
+                                                class="icon-cross2"></i></a>
                                     <div class="btn-group">
                                         <button type="button"
                                                 class="btn bg-teal-600 dropdown-toggle legitRipple"
@@ -61,9 +63,15 @@
                                             Cambiar Prioridad
                                             <span class="caret"></span></button>
                                         <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a href="#">Prioridad Baja</a></li>
-                                            <li><a href="#">Prioridad Normal</a></li>
-                                            <li><a href="#">Prioridad Alta</a></li>
+                                            <li>
+                                                <a href="{{ route('changePriority.task', array($task,'Baja')) }}">Prioridad
+                                                    Baja</a></li>
+                                            <li>
+                                                <a href="{{ route('changePriority.task', array($task,'Normal')) }}">Prioridad
+                                                    Normal</a></li>
+                                            <li>
+                                                <a href="{{ route('changePriority.task', array($task,'Alta')) }}">Prioridad
+                                                    Alta</a></li>
                                         </ul>
                                     </div>
                                 </div>
