@@ -8,6 +8,7 @@ use App\Http\Requests\AddCustomerPatientDashboardRequest;
 use App\Patient;
 use App\Province;
 use App\Specie;
+use App\Task;
 use App\Veterinarian;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Carbon;
@@ -42,8 +43,12 @@ class HomeController extends Controller
         $countCustomer = Customer::where('veterinarian_id', $veterinarian->id)
             ->count();
 
+        $tasks = Task::where('veterinarian_id', $veterinarian->id)
+            ->whereBetween('date', [now(), Carbon::parse('+5days')])
+            ->get();
+
         return view('panel.index', compact('province', 'cities', 'species', 'customers', 'patients',
-            'countPatient', 'countCustomer'));
+            'countPatient', 'countCustomer', 'tasks'));
     }
 
     public function addCustomerPatient(AddCustomerPatientDashboardRequest $request)

@@ -2,7 +2,7 @@
     <div class="col-sm-4">
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h6 class="panel-title"><i class="icon-files-empty position-left"></i> Siguiente turno</h6>
+                <h6 class="panel-title"><i class="icon-files-empty position-left"></i> Siguiente tarea</h6>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a data-action="collapse"></a></li>
@@ -30,12 +30,17 @@
                     <td><i class="icon-circles2 position-left"></i> Priority:</td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <a href="#" class="label label-danger dropdown-toggle" data-toggle="dropdown">Highest <span class="caret"></span></a>
+                            <a href="#" class="label label-danger dropdown-toggle" data-toggle="dropdown">Highest <span
+                                        class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="#"><span class="status-mark position-left bg-danger"></span> Highest priority</a></li>
-                                <li><a href="#"><span class="status-mark position-left bg-info"></span> High priority</a></li>
-                                <li><a href="#"><span class="status-mark position-left bg-primary"></span> Normal priority</a></li>
-                                <li><a href="#"><span class="status-mark position-left bg-success"></span> Low priority</a></li>
+                                <li><a href="#"><span class="status-mark position-left bg-danger"></span> Highest
+                                        priority</a></li>
+                                <li><a href="#"><span class="status-mark position-left bg-info"></span> High
+                                        priority</a></li>
+                                <li><a href="#"><span class="status-mark position-left bg-primary"></span> Normal
+                                        priority</a></li>
+                                <li><a href="#"><span class="status-mark position-left bg-success"></span> Low priority</a>
+                                </li>
                             </ul>
                         </div>
                     </td>
@@ -65,7 +70,8 @@
                     <ul class="list-inline list-inline-condensed heading-text pull-right">
                         <li><a href="#" class="text-default"><i class="icon-statistics"></i></a></li>
                         <li class="dropdown">
-                            <a href="#" class="text-default dropdown-toggle" data-toggle="dropdown"><i class="icon-gear"></i><span class="caret"></span></a>
+                            <a href="#" class="text-default dropdown-toggle" data-toggle="dropdown"><i
+                                        class="icon-gear"></i><span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="#"><i class="icon-alarm-add"></i> Check in</a></li>
                                 <li><a href="#"><i class="icon-attachment"></i> Attach screenshot</a></li>
@@ -96,12 +102,12 @@
 
             <!-- Tabs -->
             <ul class="nav nav-lg nav-tabs nav-justified no-margin no-border-radius bg-indigo-400 border-top border-top-indigo-300">
+
                 <li class="active">
                     <a href="#messages-tue" class="text-size-small text-uppercase" data-toggle="tab">
                         {{ \Carbon\Carbon::parse('now')->isoFormat('LL') }}
                     </a>
                 </li>
-
                 <li>
                     <a href="#messages-mon" class="text-size-small text-uppercase" data-toggle="tab">
                         {{ \Carbon\Carbon::parse('tomorrow')->isoFormat('LL') }}
@@ -137,6 +143,7 @@
 
             <!-- Tabs content -->
             <div class="tab-content">
+                @foreach($tasks as $task)
                 <div class="tab-pane active fade in has-padding" id="messages-tue">
                     <ul class="media-list">
                         <li class="media">
@@ -155,70 +162,11 @@
                             </div>
                         </li>
 
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-xs" alt="">
-                                <span class="badge bg-danger-400 media-badge">6</span>
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Margo Baker
-                                    <span class="media-annotation pull-right">12:16</span>
-                                </a>
-
-                                <span class="display-block text-muted">Pinched a well more moral chose goodness...</span>
-                            </div>
-                        </li>
-
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-xs" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Jeremy Victorino
-                                    <span class="media-annotation pull-right">09:48</span>
-                                </a>
-
-                                <span class="display-block text-muted">Pert thickly mischievous clung frowned well...</span>
-                            </div>
-                        </li>
-
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-xs" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Beatrix Diaz
-                                    <span class="media-annotation pull-right">05:54</span>
-                                </a>
-
-                                <span class="display-block text-muted">Nightingale taped hello bucolic fussily cardinal...</span>
-                            </div>
-                        </li>
-
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-xs" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Richard Vango
-                                    <span class="media-annotation pull-right">01:43</span>
-                                </a>
-
-                                <span class="display-block text-muted">Amidst roadrunner distantly pompously where...</span>
-                            </div>
-                        </li>
                     </ul>
                 </div>
+                @endforeach
 
-                <div class="tab-pane fade has-padding" id="messages-mon">
+                {{--<div class="tab-pane fade has-padding" id="messages-mon">
                     <ul class="media-list">
                         <li class="media">
                             <div class="media-left">
@@ -374,7 +322,7 @@
                             </div>
                         </li>
                     </ul>
-                </div>
+                </div>--}}
             </div>
             <!-- /tabs content -->
 
