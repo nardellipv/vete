@@ -1,334 +1,81 @@
-<div class="row">
-    <div class="col-sm-4">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h6 class="panel-title"><i class="icon-files-empty position-left"></i> Siguiente tarea</h6>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <table class="table table-borderless table-xs content-group-sm">
-                <tbody>
-                <tr>
-                    <td><i class="icon-briefcase position-left"></i> Project:</td>
-                    <td class="text-right"><span class="pull-right"><a href="#">Singular app</a></span></td>
-                </tr>
-                <tr>
-                    <td><i class="icon-alarm-add position-left"></i> Updated:</td>
-                    <td class="text-right">12 May, 2015</td>
-                </tr>
-                <tr>
-                    <td><i class="icon-alarm-check position-left"></i> Created:</td>
-                    <td class="text-right">25 Feb, 2015</td>
-                </tr>
-                <tr>
-                    <td><i class="icon-circles2 position-left"></i> Priority:</td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <a href="#" class="label label-danger dropdown-toggle" data-toggle="dropdown">Highest <span
-                                        class="caret"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="#"><span class="status-mark position-left bg-danger"></span> Highest
-                                        priority</a></li>
-                                <li><a href="#"><span class="status-mark position-left bg-info"></span> High
-                                        priority</a></li>
-                                <li><a href="#"><span class="status-mark position-left bg-primary"></span> Normal
-                                        priority</a></li>
-                                <li><a href="#"><span class="status-mark position-left bg-success"></span> Low priority</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><i class="icon-history position-left"></i> Revisions:</td>
-                    <td class="text-right">29</td>
-                </tr>
-                <tr>
-                    <td><i class="icon-file-plus position-left"></i> Added by:</td>
-                    <td class="text-right"><a href="#">Winnie</a></td>
-                </tr>
-                <tr>
-                    <td><i class="icon-file-check position-left"></i> Status:</td>
-                    <td class="text-right">Published</td>
-                </tr>
-                </tbody>
-            </table>
-
-            <div class="panel-footer panel-footer-condensed">
-                <div class="heading-elements">
-                    <ul class="list-inline list-inline-condensed heading-text">
-                        <li><a href="#" class="text-default"><i class="icon-pencil7"></i></a></li>
-                        <li><a href="#" class="text-default"><i class="icon-bin"></i></a></li>
-                    </ul>
-
-                    <ul class="list-inline list-inline-condensed heading-text pull-right">
-                        <li><a href="#" class="text-default"><i class="icon-statistics"></i></a></li>
-                        <li class="dropdown">
-                            <a href="#" class="text-default dropdown-toggle" data-toggle="dropdown"><i
-                                        class="icon-gear"></i><span class="caret"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="#"><i class="icon-alarm-add"></i> Check in</a></li>
-                                <li><a href="#"><i class="icon-attachment"></i> Attach screenshot</a></li>
-                                <li><a href="#"><i class="icon-user-plus"></i> Assign users</a></li>
-                                <li><a href="#"><i class="icon-warning2"></i> Report</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h6 class="panel-title">Tareas para <b>{{ now()->format('d/m/Y') }}</b></h6>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+            </ul>
         </div>
     </div>
-    <div class="col-sm-8">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h6 class="panel-title">Siguientes Turnos</h6>
-                <div class="heading-elements">
-            <span class="heading-text"><i
-                        class="icon-history text-warning position-left"></i> {{ date('d/m/Y') }}</span>
-                    <span class="label bg-success heading-text">Online</span>
+
+    <div class="row">
+        @foreach($tasks as $task)
+            <div class="col-md-6">
+                <div class="panel border-left-lg border-left-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6 class="no-margin-top"><a
+                                            href="task_manager_detailed.html">
+                                        {{ Str::limit($task->title,30) }}
+                                    </a></h6>
+                                <p class="mb-15">{{ Str::limit($task->motive, 75) }}</p>
+                                <li>Estado:
+                                    <span class="label border-left-primary label-striped">{{ $task->status }}</span>
+                                </li>
+                            </div>
+
+                            <div class="col-md-4">
+                                <ul class="list task-details">
+                                    <li>{{ \Carbon\Carbon::parse($task->date)->format('d/m/Y') }}</li>
+                                    <li>{{ \Carbon\Carbon::parse($task->hours)->format('H:m') }}</li>
+                                    <li>
+                                        Prioridad: &nbsp;
+                                        @if($task->priority == 'Alta')
+                                            <span class="label label-danger label-block">{{ $task->priority }}</span>
+                                        @elseif ($task->priority == 'Normal')
+                                            <span class="label label-warning label-block">{{ $task->priority }}</span>
+                                        @else
+                                            <span class="label label-info label-block">{{ $task->priority }}</span>
+                                        @endif
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer panel-footer-condensed">
+                        <div class="border-top-primary text-center">
+                            <div class="btn-group">
+                                <a href="{{route('check.task', $task)}}" type="button"
+                                   class="btn bg-teal-600 legitRipple"><i
+                                            class="icon-checkmark"></i></a>
+                                <a href="{{ route('delete.task', $task) }}" type="button"
+                                   class="btn bg-teal-600 legitRipple"><i
+                                            class="icon-cross2"></i></a>
+                                <div class="btn-group">
+                                    <button type="button"
+                                            class="btn bg-teal-600 dropdown-toggle legitRipple"
+                                            data-toggle="dropdown" aria-expanded="false">
+                                        Cambiar Prioridad
+                                        <span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <a href="{{ route('changePriority.task', array($task,'Baja')) }}">Prioridad
+                                                Baja</a></li>
+                                        <li>
+                                            <a href="{{ route('changePriority.task', array($task,'Normal')) }}">Prioridad
+                                                Normal</a></li>
+                                        <li>
+                                            <a href="{{ route('changePriority.task', array($task,'Alta')) }}">Prioridad
+                                                Alta</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
-            <!-- Area chart -->
-            <div id="messages-stats"></div>
-            <!-- /area chart -->
-
-            <!-- Tabs -->
-            <ul class="nav nav-lg nav-tabs nav-justified no-margin no-border-radius bg-indigo-400 border-top border-top-indigo-300">
-
-                <li class="active">
-                    <a href="#messages-tue" class="text-size-small text-uppercase" data-toggle="tab">
-                        {{ \Carbon\Carbon::parse('now')->isoFormat('LL') }}
-                    </a>
-                </li>
-                <li>
-                    <a href="#messages-mon" class="text-size-small text-uppercase" data-toggle="tab">
-                        {{ \Carbon\Carbon::parse('tomorrow')->isoFormat('LL') }}
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#messages-fri" class="text-size-small text-uppercase" data-toggle="tab">
-                        {{ \Carbon\Carbon::parse('+2 days')->isoFormat('LL') }}
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#messages-fri" class="text-size-small text-uppercase" data-toggle="tab">
-                        {{ \Carbon\Carbon::parse('+3 days')->isoFormat('LL') }}
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#messages-fri" class="text-size-small text-uppercase" data-toggle="tab">
-                        {{ \Carbon\Carbon::parse('+4 days')->isoFormat('LL') }}
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#messages-fri" class="text-size-small text-uppercase" data-toggle="tab">
-                        {{ \Carbon\Carbon::parse('+5 days')->isoFormat('LL') }}
-                    </a>
-                </li>
-            </ul>
-            <!-- /tabs -->
-
-
-            <!-- Tabs content -->
-            <div class="tab-content">
-                @foreach($tasks as $task)
-                <div class="tab-pane active fade in has-padding" id="messages-tue">
-                    <ul class="media-list">
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-xs" alt="">
-                                <span class="badge bg-danger-400 media-badge">8</span>
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    James Alexander
-                                    <span class="media-annotation pull-right">14:58</span>
-                                </a>
-
-                                <span class="display-block text-muted">The constitutionally inventoried precariously...</span>
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-                @endforeach
-
-                {{--<div class="tab-pane fade has-padding" id="messages-mon">
-                    <ul class="media-list">
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Isak Temes
-                                    <span class="media-annotation pull-right">Tue, 19:58</span>
-                                </a>
-
-                                <span class="display-block text-muted">Reasonable palpably rankly expressly grimy...</span>
-                            </div>
-                        </li>
-
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Vittorio Cosgrove
-                                    <span class="media-annotation pull-right">Tue, 16:35</span>
-                                </a>
-
-                                <span class="display-block text-muted">Arguably therefore more unexplainable fumed...</span>
-                            </div>
-                        </li>
-
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Hilary Talaugon
-                                    <span class="media-annotation pull-right">Tue, 12:16</span>
-                                </a>
-
-                                <span class="display-block text-muted">Nicely unlike porpoise a kookaburra past more...</span>
-                            </div>
-                        </li>
-
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Bobbie Seber
-                                    <span class="media-annotation pull-right">Tue, 09:20</span>
-                                </a>
-
-                                <span class="display-block text-muted">Before visual vigilantly fortuitous tortoise...</span>
-                            </div>
-                        </li>
-
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Walther Laws
-                                    <span class="media-annotation pull-right">Tue, 03:29</span>
-                                </a>
-
-                                <span class="display-block text-muted">Far affecting more leered unerringly dishonest...</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="tab-pane fade has-padding" id="messages-fri">
-                    <ul class="media-list">
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Owen Stretch
-                                    <span class="media-annotation pull-right">Mon, 18:12</span>
-                                </a>
-
-                                <span class="display-block text-muted">Tardy rattlesnake seal raptly earthworm...</span>
-                            </div>
-                        </li>
-
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Jenilee Mcnair
-                                    <span class="media-annotation pull-right">Mon, 14:03</span>
-                                </a>
-
-                                <span class="display-block text-muted">Since hello dear pushed amid darn trite...</span>
-                            </div>
-                        </li>
-
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Alaster Jain
-                                    <span class="media-annotation pull-right">Mon, 13:59</span>
-                                </a>
-
-                                <span class="display-block text-muted">Dachshund cardinal dear next jeepers well...</span>
-                            </div>
-                        </li>
-
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Sigfrid Thisted
-                                    <span class="media-annotation pull-right">Mon, 09:26</span>
-                                </a>
-
-                                <span class="display-block text-muted">Lighted wolf yikes less lemur crud grunted...</span>
-                            </div>
-                        </li>
-
-                        <li class="media">
-                            <div class="media-left">
-                                <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
-                            </div>
-
-                            <div class="media-body">
-                                <a href="#">
-                                    Sherilyn Mckee
-                                    <span class="media-annotation pull-right">Mon, 06:38</span>
-                                </a>
-
-                                <span class="display-block text-muted">Less unicorn a however careless husky...</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>--}}
-            </div>
-            <!-- /tabs content -->
-
-        </div>
+        @endforeach
     </div>
 </div>
-
-
-

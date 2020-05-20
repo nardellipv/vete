@@ -44,7 +44,8 @@ class HomeController extends Controller
             ->count();
 
         $tasks = Task::where('veterinarian_id', $veterinarian->id)
-            ->whereBetween('date', [now(), Carbon::parse('+5days')])
+            ->where('date', today())
+            ->where('status', 'Pendiente')
             ->get();
 
         return view('panel.index', compact('province', 'cities', 'species', 'customers', 'patients',
